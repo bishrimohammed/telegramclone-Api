@@ -13,6 +13,8 @@ import multer from "multer";
 import { fileURLToPath } from "url";
 import path from "path";
 import { register } from "./controllers/auth.js";
+const PORT = process.env.PORT || 3030;
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,6 +50,7 @@ app.use("/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/conservations", conservationRoute);
 app.use("/api/messages", messageRoute);
-app.listen(4000, () => {
-  console.log("hello");
+
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
 });
