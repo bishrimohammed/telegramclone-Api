@@ -44,7 +44,9 @@ mongoose
   })
   .then(() => console.log("connected"));
 app.use(express.json());
-
+app.use("/", (req,res)=>{
+res.send("ok")
+});
 app.use("/auth/register", upload.single("picture"), register);
 app.use("/auth", authRoute);
 app.use("/api/users", userRoute);
