@@ -13,6 +13,7 @@ import multer from "multer";
 import { fileURLToPath } from "url";
 import path from "path";
 import { register } from "./controllers/auth.js";
+import User from "./models/User.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,8 +43,10 @@ mongoose
   })
   .then(() => console.log("connected DB"));
 app.use(express.json());
-app.use("/s", (req, res) => {
-  res.send("ok");
+app.use("/:id", async (req, res) => {
+  const id = req.pramas.id;
+  const user = await User.findById(id);
+  res.send(user);
 });
 app.use("/auth/register", upload.single("picture"), register);
 app.use("/auth", authRoute);
