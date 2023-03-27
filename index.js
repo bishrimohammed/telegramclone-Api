@@ -23,7 +23,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
-
+const PORT = process.env.PORT || 3131;
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/assets");
@@ -40,7 +40,7 @@ mongoose
     useUnifiedTopology: true,
     socketTimeoutMS: 43200000,
   })
-  .then(() => console.log("connected"));
+  .then(() => console.log("connected DB"));
 app.use(express.json());
 
 app.use("/auth/register", upload.single("picture"), register);
@@ -48,6 +48,6 @@ app.use("/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/conservations", conservationRoute);
 app.use("/api/messages", messageRoute);
-app.listen(4000, () => {
-  console.log("hello");
+app.listen(PORT, () => {
+  console.log("server is connected on " + PORT);
 });
