@@ -42,12 +42,14 @@ mongoose
   })
   .then(() => console.log("connected DB"));
 app.use(express.json());
-
+app.use("/s", (req, res) => {
+  res.send("ok");
+});
 app.use("/auth/register", upload.single("picture"), register);
 app.use("/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/conservations", conservationRoute);
 app.use("/api/messages", messageRoute);
 app.listen(PORT, () => {
-  console.log("server is connected on " + PORT);
+  console.log("connected to server on " + PORT);
 });
