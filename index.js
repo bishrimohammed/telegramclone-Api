@@ -43,8 +43,8 @@ mongoose
   })
   .then(() => console.log("connected DB"));
 app.use(express.json());
-app.use("/:id", async (req, res) => {
-  const id = req.pramas.id;
+app.use("/users/:id", async (req, res) => {
+  const id = req.params.id;
   const user = await User.findById(id);
   res.send(user);
 });
