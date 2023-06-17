@@ -13,12 +13,14 @@ export const createConservation = async (req, res) => {
 };
 
 export const userConservation = async (req, res) => {
+  const conservat = await Conservation.find({
+    member: { $all: [req.params.userId] },
+  });
   try {
-    const conservation = await Conservation.find({
-      member: { $in: [req.params.userId] },
-    });
-    //const savedcon = await conserv.save();
-    res.status(200).json(conservation);
+    // const savedcon = await conserv.save();
+    console.log(conservat);
+    console.log(req.params.userId);
+    res.status(200).json(conservat);
   } catch (err) {
     res.status(500).json(err);
   }

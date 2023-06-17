@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Conservation from "../models/conservation.js";
 import jwt from "jsonwebtoken";
 export const register = async (req, res) => {
   try {
@@ -14,6 +15,15 @@ export const register = async (req, res) => {
     });
 
     const savedUser = await newUser.save();
+    const otherUser = await User.find().where({ _id: { $ne: savedUser._id } });
+    // const friendts = otherUser.filter((user) => user._id !== savedUser._id);
+    const listcon = otherUser.forEach(async (friend) => {
+      const conserv = new Conservation({
+        member: ["" + friend._id, "" + savedUser._id],
+      });
+      await conserv.save();
+    });
+
     res.status(201).json(savedUser);
   } catch (err) {
     res.status(500).json(err);
