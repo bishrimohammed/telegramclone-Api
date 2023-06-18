@@ -22,7 +22,11 @@ dotenv.config();
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
-app.use(cors({ origin: "https://telegramchat-fxcw.onrender.com" }));
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://telegramchat-fxcw.onrender.com"],
+  })
+);
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 const PORT = process.env.PORT || 4000;
 const storage = multer.diskStorage({
