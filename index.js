@@ -39,7 +39,7 @@ mongoose
   .connect(process.env.Mongo_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    socketTimeoutMS: 43200000,
+   
   })
   .then(() => console.log("connected DB"));
 app.use(express.json());
